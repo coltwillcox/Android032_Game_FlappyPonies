@@ -42,9 +42,13 @@ public class StatePlay extends State {
         handleInput();
         bird.update(deltaTime);
         camera.position.x = bird.getPosition().x + 80;
-        for (Tube tube : tubes)
+        for (Tube tube : tubes) {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTextureTopTube().getWidth())
                 tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+            //Collide check. Compare every tube with the bird.
+            if (tube.collides(bird.getBounds()))
+                gameStateManager.set(new StatePlay(gameStateManager));
+        }
         camera.update();
     }
 

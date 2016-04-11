@@ -1,6 +1,7 @@
 package com.colt.flappyponies.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
@@ -19,6 +20,8 @@ public class Tube {
     private Vector2 positionBottomTube;
     private Texture topTube;
     private Texture bottomTube;
+    private Rectangle boundsTop;
+    private Rectangle boundsBottom;
 
     //Constructor.
     public Tube(float x) {
@@ -27,6 +30,19 @@ public class Tube {
         bottomTube = new Texture("graphics/bottomtube.png");
         positionTopTube = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottomTube = new Vector2(x, positionTopTube.y - TUBE_GAP - bottomTube.getHeight()); //From bottom left, remember? :)
+        boundsTop = new Rectangle(positionTopTube.x, positionTopTube.y, topTube.getWidth(), topTube.getHeight()); //x, y, width, height.
+        boundsBottom = new Rectangle(positionBottomTube.x, positionBottomTube.y, bottomTube.getWidth(), bottomTube.getHeight());
+    }
+
+    public void reposition(float x) {
+        positionTopTube.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        positionBottomTube.set(x, positionTopTube.y - TUBE_GAP - bottomTube.getHeight());
+        boundsTop.setPosition(positionTopTube.x, positionTopTube.y);
+        boundsBottom.setPosition(positionBottomTube.x, positionBottomTube.y);
+    }
+
+    public boolean collides(Rectangle player) {
+        return player.overlaps(boundsTop) || player.overlaps(boundsBottom); //Cool overlaps method. :)
     }
 
     //Getters.
@@ -44,11 +60,6 @@ public class Tube {
 
     public Vector2 getPositionBottomTube() {
         return positionBottomTube;
-    }
-
-    public void reposition(float x) {
-        positionTopTube.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
-        positionBottomTube.set(x, positionTopTube.y - TUBE_GAP - bottomTube.getHeight());
     }
 
 }

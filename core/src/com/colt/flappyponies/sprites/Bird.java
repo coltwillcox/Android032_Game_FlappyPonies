@@ -1,6 +1,7 @@
 package com.colt.flappyponies.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -14,12 +15,14 @@ public class Bird {
     private Vector2 position;
     private Vector2 velocity;
     private Texture bird;
+    private Rectangle boundsBird;
 
     //Constructor.
     public Bird(int x, int y) {
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         bird = new Texture("graphics/bird.png");
+        boundsBird = new Rectangle(position.x, position.y, bird.getWidth(), bird.getHeight()); //Could also use x, y for first paramaters, but naah.
     }
 
     public void update(float deltaTime) {
@@ -30,6 +33,7 @@ public class Bird {
         if (position.y < 0)
             position.y = 0;
         velocity.scl(1 / deltaTime); //Reverses what is scaled previously.
+        boundsBird.setPosition(position.x, position.y);
     }
 
     public void jump() {
@@ -43,6 +47,10 @@ public class Bird {
 
     public Texture getTexture() {
         return bird;
+    }
+
+    public Rectangle getBounds() {
+        return boundsBird;
     }
 
 }
