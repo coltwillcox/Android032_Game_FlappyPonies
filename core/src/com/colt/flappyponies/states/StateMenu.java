@@ -25,7 +25,6 @@ public class StateMenu extends State {
     public void handleInput() {
         if (Gdx.input.justTouched()) {
             gameStateManager.set(new StatePlay(gameStateManager));
-            dispose();
         }
     }
 

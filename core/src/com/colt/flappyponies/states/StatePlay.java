@@ -46,8 +46,10 @@ public class StatePlay extends State {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTextureTopTube().getWidth())
                 tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             //Collide check. Compare every tube with the bird.
-            if (tube.collides(bird.getBounds()))
+            if (tube.collides(bird.getBounds())) {
                 gameStateManager.set(new StatePlay(gameStateManager));
+                break;
+            }
         }
         camera.update();
     }
@@ -67,7 +69,10 @@ public class StatePlay extends State {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        bird.dispose();
+        for (Tube tube : tubes)
+            tube.dispose();
     }
 
 }

@@ -45,6 +45,11 @@ public class Tube {
         return player.overlaps(boundsTop) || player.overlaps(boundsBottom); //Cool overlaps method. :)
     }
 
+    public void dispose() {
+        topTube.dispose();
+        bottomTube.dispose();
+    }
+
     //Getters.
     public Texture getTextureTopTube() {
         return topTube;
