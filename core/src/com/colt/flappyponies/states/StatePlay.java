@@ -28,7 +28,7 @@ public class StatePlay extends State {
     //Constructor.
     public StatePlay(GameStateManager gameStateManager) {
         super(gameStateManager);
-        camera.setToOrtho(false, Boot.WIDTH / 2, Boot.HEIGHT / 2); //false - don't use 0, 0 in top left, but use it in bottom left.
+        camera.setToOrtho(false, Boot.WIDTH / 2, Boot.HEIGHT / 2);
         background = new Texture("graphics/background.png");
         ground = new Texture("graphics/ground.png");
         bird = new Bird(50, 300);
