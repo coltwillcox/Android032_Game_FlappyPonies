@@ -22,10 +22,17 @@ public class Bird {
     }
 
     public void update(float deltaTime) {
-        velocity.add(0, GRAVITY);
+        if (position.y > 0)
+            velocity.add(0, GRAVITY);
         velocity.scl(deltaTime); //Scale will multiply everything by deltaTime.
         position.add(0, velocity.y);
-        velocity.scl(1 / deltaTime); //Reverses waht is scaled previously.
+        if (position.y < 0)
+            position.y = 0;
+        velocity.scl(1 / deltaTime); //Reverses what is scaled previously.
+    }
+
+    public void jump() {
+        velocity.y = 250;
     }
 
     //Getters.
